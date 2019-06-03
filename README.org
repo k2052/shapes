@@ -1,0 +1,165 @@
+* Shapes
+
+Shapes are platform agnostic starter kits. Instead of being yeoman generators or projects to clone from git or cli tools; shapes are just plain folders with make files. Shapes relies on plain unix tools and principles to drastically reduce the fatigue of starting new projects without inventing new abstractions, ecosystems, or tools.
+
+Shapes re-introduces unix principles to starting projects. Instead of cloning projects, we use cp and just copy things. Instead of scripts that are dependent on one language (e.g npm) there is just make files. Instead of templates and generators, we just use standard unix tools like sed, regex, and shell scripts. Instead of cli tools like next or nuxt we make use of common patterns like mapping file paths to code. Shapes is a universal language for starting a project, modifying it and extending it.
+
+I have noticed something, I no longer enjoy writing code without next.js. It isn't that I don't like other frameworks, or that I'm stuck on a tool; I just I don't want to take the extra time to use anything else. We built tools to abstract over the fatigue but in the absence of these tools the fatigue has grown stronger. Without a tool to prevent fatigue I find I don't even want to code, and that is bad.
+
+What is the difference between using next.js and cloning a repo and making a few edits, or using another framework? In the grand scheme, one might only shave off a few keystrokes, an hour or two here or there. So why is one method so much more frustrating, so much more draining? Why is one method so fun and the other we have to push and shove ourselves to do? What is the difference between a workflow that brings flow and one that causes fatigue?
+
+All tools are languages, we memorize and conceptualize tasks in the languages of the tools we use. next.js let's you code in a flow state because it gives you a language to reason about modern javascript projects. We know how to start a project in next.js, know how to run it, extend it and modify it, but all those paradigms break down in other languages and platforms. 
+
+The problem is that an abundance of tools has lead to an abundance of languages. JavaScript developers no longer all speak a shared language. We speak Vue, next, nuxt, React, GraphQL, yo, hygen, lit-html etc. All the tools, all these communities have slightly different ways of doing things. Keeping track of all the differences in ways of doing things is exhausting.
+
+next.js uses two fundamental abstractions;
+
+1. Paths correspond to code, e.g the code that handles /unicorns is in src/unicorns.js.
+2. A cli tool holds all the confic which is mostly standarized defaults.
+
+You can get a ton of mileage out of these two patterns. The problem is when you try to step out of them. You want every framework to work with just a cli tool and have defaults, writing configuration feels like going back to the stone age. You want every framework to have a simple mental model where code maps to file paths. It isn't that these things are so much easier than other ways of doing things, it is just that context switching to another way of doing things is hard, it interrupts flow. All we want to do is make our ideas come to life!
+
+The problem isn't that frameworks introduce new languages, or new ways of doing things, it is that we start to shoehorn other things into the language we know, because it is the easiest. We reach for the thing we know, even if that thing isn't the best for the problem we are solving.
+
+** How Shapes Works 
+
+*Note*: *Shapes is an ever evolving solution and currently in the very early stages while I figure things out. You might not want to use it*
+
+Shapes attempts to utilize unix principles for solving problems of modern JS fatigue. Shapes is designed around the following prinicples:
+
+1. cp, regex, and plain text config for boilerplates
+2. Makefiles for scripts. 
+3. generic cli tools that work across languages and platforms. Written in something closer to metal like Nim or Crystal or Rust, or even good old C.
+4. Configuration is always sane defaults. If you want customize something you should have a very good reason to do so:
+
+I have a feeling that these things can get us through 99% of the problems more complex tools solve. We don't need the fatigue of current tooling, we can opt out.
+
+** Usage
+
+Pick a shape using a search tool like fzf. Then copy it over:
+
+#+begin_src :sh
+$ cp -R ~/shapes/article/ new-article
+#+end_src
+
+It is that simple!
+
+** Solutions
+
+*** Templates?
+
+You have just created a project and now you want to name it. If you are using a generator you can do something like:
+
+#+begin_src :sh
+$ yo react-app unicorns --name unicorns-are-awesome
+#+end_src
+
+But without a command line tool how do we do stuff like this? We can accomplish things with just regex and sd:
+
+#+begin_src :sh
+$ sd -i '\{\{name\}\}' 'unicorns' $(fd -t f) 
+#+end_src
+
+This will search the project folder for mustache style name tag and replace them. You can install [[https://github.com/k2052/sdkv][sdkv]] to help shorten these commands.
+
+*Tip*: You can filter files using a tool like fd and regex. No need to pass the entire project through sd. 
+
+*** Scripts?
+
+You can just use a makefile. After copying run make. Done. Don't use npm or rake, just use make.
+
+**** Adding Things
+
+So you have your project created and now you want to add things to the project, like say a controller. How do you do this without adopting a tool that will generate and add controllers?
+
+The thing to remember is that for the most part generators are just fancy copy and paste. They usually have some text files with some stuff that gets replaced based on your inputs. This means can accomplish 99% of the features of any generator just with =cp= and a bit of regex.
+
+Now of course there are many things that exceed the capabilities of regex, like for example, a generator that creates schema for a model; but these tools shouldn't be part of generators, they should be an entire tool like rails. We can do without these features in generators.
+
+*** Modifying a Boilerplate
+
+Let's say you have discovered a bug in the boilerplate, fixed it, and now you want to distribute that to all the projects deriving from the boilerplate. To do this you can search for projects and then copy a file to each of those directories:
+
+#+begin_src :sh
+$ cp $(ag -l "query-to-find-projects" | xargs readlink -f) Fixes
+#+end_src
+
+Unix solves a ton of problems!
+ 
+*** Configs and Sane Defaults: Configuration as a Dependency
+
+Let's say you have created a modern JS project and that project has a complicated Webpack config. How do we then re-use this config on future projects? We could throw it out and decide that we are just going to use a tool with a bunch of good out of box tooling, but what happens when the config for the out-of-box tool gets complicated? At some point, we need a way to re-use config.
+
+If we want to re-use something between two projects, we have a very common solution, dependencies. Configuration should be re-usable and. Configuration then can just be a separate shape that you copy into a project. Want config for loading mdx? Just copy and add as a dependency to your project.
+
+*Note*: Still figuring this one out.
+
+*** Settings
+
+Imagine you have a node project that uses Vue and one that uses React. In a more typical generator type situation we would take the type as a param and then generate different configs based on the type of project. For example, =yo node --type vue= would generate a vue project and =yo node --type react= would generate a React project.  
+
+How do we share configuration and files between shapes? The first solution is incredibly simple, just use sym links, any files needed in both are symlinked in. Then when we copy a project we just de-reference those links:
+
+#+begin_src :sh
+cp -R -L ~/shapes/vue/ test-article/
+#+end_src
+
+*Note*: =-L= is the option to dereference sym links
+
+This handles a lot of scenarios, but what about when we want to share configuration in files or generate a configuration based on inputs? For the former, we don't need to share configuration! Any shared configuration should be a dependency. If it isn't complex enough to be a shared dependency, then just duplicate it, duplication is okay. 
+
+For generating configuration, we can do that after a project has been initialized. This might seem like a bad idea but if you think about it why should configuration that is generated be part of a boilerplate? It can just as easily live in snippets or in external tools. Instead of doing things like =yo new react-project= do =add-react-to-project= instead.
+
+** Unsolved Problems
+
+**** Scaling
+
+I'm not sure this scales to larger projects, but I would theorize that on a project that shapes doesn't work for you shouldn't be using a boilerplate and it is worth the extra effort to do the busy work of manually configuring things.
+
+** Shapes
+
+For now all shapes and their installation procedures are documented here. Might move to a docs folder if things get too big. The following shapes are currently available:
+
+- Article. An article shape.  
+- Licenses. All the licenses I use in projects.
+ 
+*** Article
+
+An article is a npm package containing an org file and any accompanying assets.
+
+**** Installation
+
+To use the article shape, copy it and then run sdkv:
+
+#+begin_src sh
+$ cp -rf article my-article && cd my-article && sdkv --name my-article
+#+end_src
+
+**** Usage
+
+The main use of an article shape versus like writing in just some files somewhere, is composability. You can re-use an article in any project that supports npm modules. 
+
+**** MDX
+
+You can export JSX calls and use MDX by using exports:
+
+#+begin_src markdown
+
+#+begin_export markdown
+<ReactComponent />
+#+end_export 
+#+end_src
+
+**** Unanswered Questions
+
+***** How do we compose a bunch of articles when in a blog situation?
+
+I think we might need to consider that a blog should be one big org file.
+
+** Is this useless?
+
+It is mostly useless :)
+
+** License
+
+Mostly licensed under MIT or ISC, but you should check the licenses in sub folders. © K-2052
