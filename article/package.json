@@ -1,0 +1,22 @@
+{
+  "name": "{{name}}",
+  "version": "1.0.0",
+  "description": "An article on something",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:markdown": "mkdir -p dist && org-to-markdown < src/README.org > dist/README.md",
+    "build:mdx": "mkdir -p dist && org-to-markdown < src/README.org > dist/README.mdx",
+    "build": "cp -r src/. dist/ && cp -rf assets dist/assets && npm run copypackage && npm run build:all",
+    "copypackage": "cp -rf package.json dist"
+  },
+  "keywords": [
+    "article",
+    "post"
+  ],
+  "author": "K-2052",
+  "license": "ISC",
+  "devDependencies": {
+    "org-to-markdown": "0.0.3"
+  }
+}
