@@ -132,7 +132,7 @@ An article is a npm package containing an org file and any accompanying assets.
 To use the article shape, copy it and then run sdkv:
 
 #+begin_src sh
-$ cp -rf article my-article && cd my-article && sdkv --name my-article
+$ cp -rf shapes/article my-article && cd my-article && sdkv --name my-article
 #+end_src
 
 **** Usage
