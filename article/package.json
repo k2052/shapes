@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "description": "An article on something",
   "main": "index.js",
+  "main:doc": "index.org",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:markdown": "mkdir -p dist && org-to-markdown < src/README.org > dist/README.md",
-    "build:mdx": "mkdir -p dist && org-to-markdown < src/README.org > dist/README.mdx",
+    "build:markdown": "mkdir -p dist && org-to-markdown < src/README.org > dist/index.md",
+    "build:mdx": "mkdir -p dist && org-to-markdown < src/README.org > dist/index.mdx",
     "build:all": "npm run build:markdown && npm run build:mdx",
-    "build": "cp -r src/. dist/ && cp -rf assets dist/assets && npm run copypackage && npm run build:all",
-    "copypackage": "cp -rf package.json dist",
+    "build": "cp -r src/. dist/ && cp -rf assets dist/assets && npm run build:all && npm run copy",
+    "copy": "cp -rf package.json dist && cp -rf src/README.org dist/index.org && cp -rf README.md dist",
     "link": "npm run build && cd dist && npm link",
-    "publish": "npm run build && cd dist && npm publish"
+    "release": "npm run build && cd dist && npm publish --access public"
   },
   "keywords": [
     "article",
