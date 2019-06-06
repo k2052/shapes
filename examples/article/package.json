@@ -1,0 +1,29 @@
+{
+  "name": "@k2052/example-article",
+  "version": "1.0.8",
+  "description": "An article on something",
+  "main": "index.js",
+  "main:doc": "index.org",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:markdown": "mkdir -p dist && org-to-markdown < src/README.org > dist/index.md",
+    "build:mdx": "mkdir -p dist && org-to-markdown < src/README.org > dist/index.mdx",
+    "build:all": "npm run build:markdown && npm run build:mdx",
+    "build": "cp -r src/. dist/ && cp -rf assets dist/assets && npm run build:all && npm run copy",
+    "copy": "cp -rf package.json dist && cp -rf src/README.org dist/index.org && cp -rf README.md dist",
+    "link": "npm run build && cd dist && npm link",
+    "release": "npm run build && cd dist && npm publish --access public"
+  },
+  "keywords": [
+    "article",
+    "post"
+  ],
+  "author": "K-2052",
+  "license": "ISC",
+  "devDependencies": {
+    "org-to-markdown": "0.0.4"
+  },
+  "dependencies": {
+    "styled-components": "^4.3.0"
+  }
+}

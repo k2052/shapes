@@ -1,0 +1,19 @@
+* Example article with next
+
+This is uses an article shape (see [[https://github.com/k2052/shapes/tree/master/examples/article][examples/article]] and composes it into a next app. There are three crucial things that make it operate;
+
+1. The source article is untranspiled. 
+2. next-orga plugin, which handles org-mode files.
+3. The next-transpile-modules plugin which handles transpiling node-modules.
+
+** Usage
+
+A typical next app, so just run next commands to do things. For starting a dev server do:
+
+#+begin_src sh
+$ npm run dev # runs next
+#+end_src
+
+** License
+
+This is licensed under ISC. (c) K-2052

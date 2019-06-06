@@ -1,0 +1,50 @@
+#+begin_export jsx
+import MakePink from "./MakePink";
+#+end_export
+
+* Example Article
+
+An example article written in org, with an ever-expanding things; there are code blocks, jsx, and emoji, with more being added as I work on features in my suite of org-mode handling packages and I write things that need new features
+
+#+begin_export jsx
+<div id="awesome" className="cat">
+#+end_export
+
+** This block is wrapped in an html tag with the id awesome and class cat
+
+Here is a list inside of it;
+
+- Stuff
+- More stuff
+- cats
+- dogs
+
+And here is some js:
+
+#+begin_src js
+  const cats = "are awesome";
+
+  const functionOfNothing = () => {
+    return "nothing";
+  };
+
+  console.log(functionOfNothing()) // -> "nothing"
+#+end_src
+
+#+begin_export jsx
+</div>
+#+end_export
+
+And here is some stuff wrapped in a component called MakePink, which adds some styling that makes things pink:
+
+#+begin_export jsx
+<MakePink>
+#+end_export
+
+This text is pink! Here is a unicorn :unicorn_face: :wave:
+
+So pink!
+
+#+begin_export jsx
+</MakePink>
+#+end_export
