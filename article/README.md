@@ -1,16 +1,16 @@
-* This is an article
+# This is an article
 
-This is the README for using the article, if you want to actually read this article you can click over to [[./src/README.org][src/README.org]]
+This is the README for using the article, if you want to actually read this article you can click over to [src/README.org](./src/README.org)
 
-** Usage
+## Usage
 
 An article is a npm package so all the typical npm stuff applies, npm publish, npm run build to build etc.
 
-*** Including in a Project
+### Including in a Project
 
 Articles are npm packages so they can be easily included in a project. Install a markdown loader (such as mdx) into your favorite bundler and then just import like this:
 
-#+begin_src javascript
+```javascript 
 import Article from "article-name/index.mdx"
 
 const App = () => {
@@ -18,13 +18,13 @@ const App = () => {
     <Article />
   )
 }
-#+end_src
+```
 
-*TODO*: Add js compilation
+**TODO**: Add js compilation
 
 You can also import the javascript version by doing:
 
-#+begin_src javascript
+```javascript 
 import Article from "article-name/index.js"
 
 const App = () => {
@@ -32,55 +32,62 @@ const App = () => {
     <Article />
   )
 }
-#+end_src
+```
 
-*** Assets
+### Assets
 
 Articles are flat npm packages and using any assets is as simple as importing them:
 
-#+begin_src javascript
+```javascript 
 import CoverImage from "article-name/assets/cover.png"
-#+end_src
+```
 
-*** Components
+### Components
 
 Some articles use mdx and export components. You can import and use these like any JS module, you will need to make sure to run them through babel as the raw ES6 code is published and no commonjs modules are provided.
 
-*** Building
+### Building
 
 You can build markdown, org, and mdx versions by running the build task e.g:
 
-#+begin_src sh
+```sh 
 $ npm run build
-#+end_src
+```
 
-*** Building Markdown
+### Building Markdown
 
-You can build a markdown version using the =build:markdown= task
+You can build a markdown version using the `build:markdown` task
 
-#+begin_src sh
+```sh 
 $ npm run build:markdown
-#+end_src
+```
 
-*** Publishing to NPM
+### Publishing to NPM
 
 Run the following:
 
-#+begin_src sh
-$ npm run build && cd dist/ && npm publish
-#+end_src
+```sh 
+$ npm run build && cd dist/ && npm publish --access public
+```
 
-*** Publishing to Medium
+Or:
+
+```sh 
+$ npm run release
+```
+
+### Publishing to Medium
 
 Unfortunately medium has removed integration tokens and it is no longer possible to publish via cli. The quickest workflow is the following:
 
-1. Generate markdown with =npm run build:markdown=
-2. Use https://markdowntomedium.com/create
- 
-*** Publishing to Dev.to
+1.  Generate markdown with 
+    `npm run build:markdown`
+2.  Use https://markdowntomedium.com/create
+
+### Publishing to Dev.to
 
 Dev.to currently lacks an API so posting must be done manually. There is work being done on an API https://github.com/thepracticaldev/dev.to/issues/911
 
-** License
+## License
 
 This article is licensed under ISC. (c) K-2052
