@@ -1,0 +1,34 @@
+{
+  "name": "book-name",
+  "version": "1.0.0",
+  "description": "An article on something",
+  "main": "index.js",
+  "main:doc": "index.org",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:pdf": "node scripts/buildPdf.js",
+    "release": "npm run build:pdf && npm publish --access public",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [
+    "article",
+    "post"
+  ],
+  "author": "K-2052",
+  "license": "ISC",
+  "devDependencies": {
+    "mkdirp": "^0.5.1",
+    "org-to-markdown": "0.0.4"
+  },
+  "dependencies": {
+    "@mdx-js/loader": "^1.0.20",
+    "next": "^8.1.0",
+    "next-orga": "0.0.4",
+    "orga-loader": "0.0.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "remark-emoji": "^2.0.2"
+  }
+}

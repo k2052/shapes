@@ -156,6 +156,18 @@ You can export JSX calls and use MDX by using exports:
 
 I think we might need to consider that a blog should be one big org file.
 
+*** Book Shape
+
+The book shape provides a book. There is little difference between a book and an article, a book is essentially multiple articles arranged with a table of contents. It is up to consumers of the book to figure out how to render the book and its chapters. A PDF version of the book is just chapters joined together and rendered to PDF using puppeter.
+
+**** Installation
+
+To use the book shape, copy it and then run sdkv to set the name:
+
+#+begin_src sh
+$ cp -rf shapes/book my-book && cd my-book && sdkv --name my-book
+#+end_src
+
 ** Is this useless?
 
 It is mostly useless :)
