@@ -1,6 +1,6 @@
 * Example article with next
 
-This is uses an article shape (see [[https://github.com/k2052/shapes/tree/master/examples/article][examples/article]] and composes it into a next app. There are three crucial things that make it operate;
+This uses an article shape (see [[https://github.com/k2052/shapes/tree/master/examples/article][examples/article]] and composes it into a next app. There are three crucial things that make it operate;
 
 1. The source article is untranspiled. 
 2. next-orga plugin, which handles org-mode files.
