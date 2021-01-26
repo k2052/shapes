@@ -5,7 +5,7 @@ import hljsstyles from "../styles/hljs.css";
 import Introduction from "../chapters/01_Introduction.org";
 import Setup from "../chapters/01s_SettingUpARubyDevEnvironment.org";
 
-import Rack from "../chapters/02_Rack.org";
+import Rack from "../chapters/02_InsideRack.org";
 import Requests from "../chapters/03_Requests.org";
 import Responses from "../chapters/04_Responses.org";
 import MVC from "../chapters/05_Mvc.org";
