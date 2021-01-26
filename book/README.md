@@ -71,7 +71,7 @@ $ npm run build:pdf
 Run the following:
 
 ```sh 
-$ npm run build && cd dist/ && npm publish --access public
+$ npm run build && npm publish --access public
 ```
 
 Or:
