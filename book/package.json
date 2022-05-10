@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@mdx-js/loader": "^1.6.22",
-    "next": "^10.0.5",
+    "next": "^12.1.0",
     "next-orga": "0.0.5",
     "orga-loader": "0.0.5",
     "react": "^17.0.1",
